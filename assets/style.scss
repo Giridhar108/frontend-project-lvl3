@@ -1,3 +1,21 @@
-body {
-  background-color: rgb(226, 126, 126);
+a {
+  text-decoration: none;
+}
+
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.form-row{
+  display: flex;
+}
+
+.form-row>[class*="col-"] {
+  padding-right: 5px;
+  padding-left: 10px;
+}
+
+.modal-window{
+  display: none;
+  padding-right: 15px;
 }

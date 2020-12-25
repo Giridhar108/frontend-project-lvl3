@@ -34,19 +34,18 @@ export default () => {
   const watchedPath = onChange(state, (path, value, previousValue) => {
     input.value = ''
     input.classList.remove("is-valid");
-    value.map(path => axios.get(`${path}`)
+    value.map(path => axios(`${path}`)
       .then((response) => {
       let parser = new DOMParser()
-      let doc = parser.parseFromString(response, 'text/xml')
-      console.log(response);
-        console.log(doc);
-        
+      let doc = parser.parseFromString(response.data, 'text/xml')
+      console.log(response.config.url);
+      console.log(doc);
       return response;
      })
     .then((article) => {
       console.log(article);
     })
-    .catch(console.error))
+      .catch(console.error))
   })
 
   const validate = (e) => {

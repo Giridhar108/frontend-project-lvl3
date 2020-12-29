@@ -6,4 +6,5 @@ export default () => {
 
   form.addEventListener('submit', (event) => getUrl(event));
   input.addEventListener('input', (event) => validate(event));
+
 };

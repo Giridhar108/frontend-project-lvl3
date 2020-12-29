@@ -26,6 +26,7 @@ export const watchedValid = onChange(state, (path, value) => {
     renderInvalidUrl();
   } else if (value === 'ready') {
     console.log('a');
+
     state.main.map((feed) => {
       if (!state.added.includes(feed.date)) renderFeeds(feed);
     });

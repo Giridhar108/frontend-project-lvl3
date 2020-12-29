@@ -1,32 +1,32 @@
-const input = document.querySelector("input");
-const button = document.querySelector(".col-auto>button");
-const feedback = document.querySelector(".feedback");
-const flow = document.querySelector(".flow");
-const feedsTitle = document.querySelector(".feeds > ul");
-const posts = document.querySelector(".posts > ul");
+const input = document.querySelector('input');
+const button = document.querySelector('.col-auto>button');
+const feedback = document.querySelector('.feedback');
+const flow = document.querySelector('.flow');
+const feedsTitle = document.querySelector('.feeds > ul');
+const posts = document.querySelector('.posts > ul');
 
 export const renderValidUrl = () => {
-  button.removeAttribute("disabled");
-  input.classList.add("is-valid");
-  input.classList.remove("is-invalid");
-  feedback.innerHTML = "";
+  button.removeAttribute('disabled');
+  input.classList.add('is-valid');
+  input.classList.remove('is-invalid');
+  feedback.innerHTML = '';
 };
 
 export const renderInvalidUrl = () => {
-  button.setAttribute("disabled", "disabled");
-  feedback.innerHTML = "must be valid";
-  feedback.classList.add("text-danger");
-  input.classList.add("is-invalid");
-  input.classList.remove("is-valid");
+  button.setAttribute('disabled', 'disabled');
+  feedback.innerHTML = 'must be valid';
+  feedback.classList.add('text-danger');
+  input.classList.add('is-invalid');
+  input.classList.remove('is-valid');
 };
 
 export const renderValidUrlSubmit = () => {
-  input.value = "";
-  input.classList.remove("is-valid");
+  input.value = '';
+  input.classList.remove('is-valid');
 };
 
 export const renderFeeds = (feed) => {
-  flow.classList.remove("disabled");
+  flow.classList.remove('disabled');
   feedsTitle.innerHTML += `<li class="list-group-item">
   <h3>${feed.title}</h3>
   <p>${feed.description}</p>

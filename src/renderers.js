@@ -1,9 +1,16 @@
+import i18next from 'i18next';
+
 const input = document.querySelector('input');
 const button = document.querySelector('.col-auto>button');
 const feedback = document.querySelector('.feedback');
 const flow = document.querySelector('.flow');
 const feedsTitle = document.querySelector('.feeds > ul');
 const posts = document.querySelector('.posts > ul');
+const modal = document.querySelector('#modal');
+const body = document.querySelector('body');
+const modalTitle = document.querySelector('.modal-title');
+const modalBody = document.querySelector('.modal-body');
+const modalLind = document.querySelector('.full-article');
 
 export const renderValidUrl = () => {
   button.removeAttribute('disabled');
@@ -14,7 +21,7 @@ export const renderValidUrl = () => {
 
 export const renderInvalidUrl = () => {
   button.setAttribute('disabled', 'disabled');
-  feedback.innerHTML = 'must be valid';
+  feedback.innerHTML = i18next.t('valid');
   feedback.classList.add('text-danger');
   input.classList.add('is-invalid');
   input.classList.remove('is-valid');
@@ -33,58 +40,46 @@ export const renderFeeds = (feed) => {
   </li>`;
 };
 
-export const renderPosts = (feed) => {
+export const renderPosts = (item, index) => {
   posts.innerHTML += `<li
-  class="list-group-item d-flex justify-content-between align-items-start"
->
+  class="list-group-item d-flex justify-content-between align-items-start">
   <a
-    href="${feed.link}"
+    href="${item.link}"
     class="postLink font-weight-bold"
-    data-id="2"
+    data-id="${index + 1}"
     target="_blank"
     rel="noopener noreferrer"
-  >${feed.title}</a>
+  >${item.title}</a>
   <button
     type="button"
     class="btn btn-primary btn-sm"
-    data-id="2"
+    data-id="${index + 1}"
     data-toggle="modal"
     data-target="#modal"
   >Preview</button>
 </li>`;
 };
-/*
-export const renderRss = (main, items) => {
-  flow.classList.remove("disabled");
-  main.map((a) => {
-    feedsTitle.append(a.title);
-    feedsDescription.append(a.description);
-  });
 
-  items.flat().map((a, index) => {
-    const li = document.createElement('li')
-    const linkA = document.createElement('a')
-    const text = document.createTextNode(`${a.title}`)
-    linkA.setAttribute('href', `${a.link}`);
-    linkA.classList.add('postLink', 'font-weight-bold')
-    linkA.setAttribute('data-id', `${index + 1}`)
-    linkA.setAttribute('target', `_blank`)
-    linkA.setAttribute('rel', "noopener noreferrer")
-    linkA.append(text)
-
-    const button = document.createElement('button')
-    button.classList.add('btn', 'btn-primary', 'btn-sm')
-    button.setAttribute('data-id', `${index + 1}`)
-    button.setAttribute('data-toggle', 'modal')
-    button.setAttribute('data-target', '#modal')
-    button.append('Preview')
-
-    li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start')
-    li.append(linkA)
-    li.append(button)
-
-    posts.append(li)
-
-  });
+export const renderOpenModal = (state, kind) => {
+  if (kind.classList[0] === 'btn') {
+    modalTitle.textContent = `${state.items.flat()[kind.dataset.id - 1].title}`;
+    modalBody.textContent = `${state.items.flat()[kind.dataset.id - 1].description}`;
+    modalLind.setAttribute('href', `${state.items.flat()[kind.dataset.id - 1].link}`);
+    modal.style.display = 'block';
+    body.classList.add('modal-open');
+    kind.previousSibling.previousSibling.classList.add('font-weight-normal');
+  }
+  if (kind.classList[0] === 'postLink') {
+    kind.classList.add('font-weight-normal');
+  }
 };
- */
+
+export const renderClodseModal = (kindBtn) => {
+  if (kindBtn.classList[0] === 'close'
+    || kindBtn.classList[0] === 'modal'
+    || kindBtn.textContent.trim() === 'Close'
+    || kindBtn.textContent.trim() === 'x') {
+    modal.style.display = '';
+    body.classList.remove('modal-open');
+  }
+};

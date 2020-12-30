@@ -1,14 +1,17 @@
-import * as yup from "yup";
-import { setLocale } from "yup";
-import { watchedValid, watchedPath } from "./watchers";
-import axios from "axios";
-import parser from "./parser";
+import * as yup from 'yup';
+import { setLocale } from 'yup';
+import axios from 'axios';
+import {
+  watchedValid, watchedPath, watchedPostStatus, watchedModalStatus,
+} from './watchers';
+import parser from './parser';
+import i18 from './i18';
 
 export const validate = (e) => {
   const url = e.target.value;
   setLocale({
     number: {
-      min: ({ min }) => ({ key: "field_too_short", values: { min } }),
+      min: ({ min }) => ({ key: i18.t('setLocale'), values: { min } }),
     },
   });
 
@@ -22,9 +25,9 @@ export const validate = (e) => {
     })
     .then((valid) => {
       if (valid) {
-        watchedValid.inputUrl.status = "valid";
+        watchedValid.inputUrl.status = 'valid';
       } else {
-        watchedValid.inputUrl.status = "invalid";
+        watchedValid.inputUrl.status = 'invalid';
       }
     });
 };
@@ -32,49 +35,56 @@ export const validate = (e) => {
 export const getUrl = (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
-  const url = formData.get("url");
-  watchedValid.inputUrl.status = "";
-
+  const url = formData.get('url');
+  watchedValid.inputUrl.status = '';
   if (!watchedPath.inputUrl.url.includes(url)) {
-    watchedPath.inputUrl.url.push(url);
+    watchedPath.inputUrl.url = url;
   }
 };
 
-export const getData = (value, state) => {
-  value.map((pathRss) =>
-    axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent(pathRss)}`)
-      .then((response) => {
-        if (!state.checkedUrl.includes(response.config.url)) {
-          state.checkedUrl.push(response.config.url);
+export const getData = (state) => {
+  console.log(state.inputUrl.url);
 
-          state.main.push(parser(response).main);
-          state.items.push(parser(response).items);
-
-          watchedValid.inputUrl.status = "ready";
-        } else {
-          console.log(response.data.contents);
-          parser(response).items.map((item) => {
-            if (!state.added.includes(item.pubDate)) {
-              state.items.push(item);
-            }
-          });
-          console.log(parser(response))
-        }
-      })
-      .then(() => setTimeout(getData, 5000, state.inputUrl.url, state))
-
-  );
+  axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent(state.inputUrl.url)}`)
+    .then((response) => {
+      console.log(response);
+      console.log(parser(response).items[9].pubDate);
+      if (!state.checkedUrl.includes(response.config.url)) {
+        state.checkedUrl.push(response.config.url);
+        state.main.push(parser(response).main);
+        state.items.push(parser(response).items);
+        watchedValid.inputUrl.status = 'ready';
+      } else {
+        parser(response).items.forEach((item) => {
+          if (!state.added.includes(item.pubDate)) {
+            state.items.push(item);
+            console.log('b');
+          }
+        });
+      }
+    })
+    .then(() => setTimeout(getData, 5000, state));
 };
 
 export const pushAdded = (main, items, state) => {
-  main.map((a) => {
+  main.forEach((a) => {
     if (!state.added.includes(a.date)) {
       state.added.push(a.date);
     }
   });
-  items.flat().map((a) => {
+  items.flat().forEach((a) => {
     if (!state.added.includes(a.pubDate)) {
       state.added.push(a.pubDate);
     }
   });
+};
+
+export const openModal = (event) => {
+  const btn = event.path[0];
+  watchedPostStatus.postActive = { btn };
+};
+
+export const listenModal = (event) => {
+  const btn = event.path[0];
+  watchedModalStatus.modalBtn = { kindBtn: btn };
 };

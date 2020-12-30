@@ -5,19 +5,20 @@ export default i18next.init({
   resources: {
     en: {
       translation: {
-        "key": "Full article",
-        "mainTitle": "RSS Render",
-        "smallMainTitle": "Start reading RSS today! It is easy, it is nicely.",
-        "mainBtn": "Add",
-        "example": "Example: https://ru.hexlet.io/lessons.rss or http://lorem-rss.herokuapp.com/feed?unit=second&interval=30",
-        "feeds": "Feeds",
-        "posts": "Posts",
-        "createdBy": "created by",
-        "setLocale": "field_too_short"
-      }
-    }
-  }
-}).then(function(t) {
+        key: 'Full article',
+        mainTitle: 'RSS Render',
+        smallMainTitle: 'Start reading RSS today! It is easy, it is nicely.',
+        mainBtn: 'Add',
+        example: 'Example: https://ru.hexlet.io/lessons.rss or http://lorem-rss.herokuapp.com/feed?unit=second&interval=30',
+        feeds: 'Feeds',
+        posts: 'Posts',
+        createdBy: 'created by',
+        setLocale: 'field_too_short',
+        valid: 'must be valid',
+      },
+    },
+  },
+}).then(() => {
   document.querySelector('.full-article').innerHTML = i18next.t('key');
   document.querySelector('h1.display-3').innerHTML = i18next.t('mainTitle');
   document.querySelector('p.lead').innerHTML = i18next.t('smallMainTitle');

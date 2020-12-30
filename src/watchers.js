@@ -5,18 +5,22 @@ import {
   renderValidUrlSubmit,
   renderFeeds,
   renderPosts,
+  renderOpenModal,
+  renderClodseModal,
 } from './renderers';
 import { getData, pushAdded } from './controlers';
 
 const state = {
   inputUrl: {
     status: '',
-    url: [],
+    url: '',
   },
   checkedUrl: [],
   main: [],
   items: [],
   added: [],
+  postActive: {},
+  modalBtn: {},
 };
 
 export const watchedValid = onChange(state, (path, value) => {
@@ -25,20 +29,28 @@ export const watchedValid = onChange(state, (path, value) => {
   } else if (value === 'invalid') {
     renderInvalidUrl();
   } else if (value === 'ready') {
-    console.log('a');
-
-    state.main.map((feed) => {
+    state.main.forEach((feed) => {
       if (!state.added.includes(feed.date)) renderFeeds(feed);
     });
-    state.items.flat().map((item) => {
-      if (!state.added.includes(item.pubDate)) renderPosts(item);
+    state.items.flat().forEach((item, index) => {
+      if (!state.added.includes(item.pubDate)) renderPosts(item, index);
     });
 
     pushAdded(state.main, state.items, state);
   }
 });
 
-export const watchedPath = onChange(state, (path, value) => {
+export const watchedPath = onChange(state, () => {
   renderValidUrlSubmit();
-  getData(value, state);
+  getData(state);
+});
+
+export const watchedPostStatus = onChange(state, (path, value) => {
+  const { btn } = value;
+  renderOpenModal(state, btn);
+});
+
+export const watchedModalStatus = onChange(state, (path, value) => {
+  const { kindBtn } = value;
+  renderClodseModal(kindBtn);
 });

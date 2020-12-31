@@ -1,7 +1,6 @@
 import onChange from 'on-change';
 import {
-  renderValidUrl,
-  renderInvalidUrl,
+  renderFeedback,
   renderValidUrlSubmit,
   renderFeeds,
   renderPosts,
@@ -12,7 +11,7 @@ import { getData, pushAdded } from './controlers';
 
 const state = {
   inputUrl: {
-    status: '',
+    status: 'filling',
     url: '',
   },
   checkedUrl: [],
@@ -25,18 +24,22 @@ const state = {
 
 export const watchedValid = onChange(state, (path, value) => {
   if (value === 'valid') {
-    renderValidUrl();
+    renderFeedback(value);
   } else if (value === 'invalid') {
-    renderInvalidUrl();
-  } else if (value === 'ready') {
+    renderFeedback(value);
+  } else if (value === 'processing') {
+    renderFeedback(value)
     state.main.forEach((feed) => {
       if (!state.added.includes(feed.date)) renderFeeds(feed);
     });
     state.items.flat().forEach((item, index) => {
       if (!state.added.includes(item.pubDate)) renderPosts(item, index);
     });
-
     pushAdded(state.main, state.items, state);
+  } else if (value === 'processed') {
+    renderFeedback(value)
+  } else if (value === 'failed') {
+    renderFeedback(value)
   }
 });
 

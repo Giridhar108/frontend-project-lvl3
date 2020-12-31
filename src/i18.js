@@ -19,7 +19,6 @@ export default i18next.init({
         processing: 'processing...',
         processed: 'Done!',
         failed: 'failed',
-
       },
     },
   },

@@ -58,12 +58,12 @@ export const getData = (state) => {
         parser(response).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items.push(item);
-            console.log('b');
           }
         });
       }
     })
-    .then(() => setTimeout(getData, 5000, state));
+    .then(() => setTimeout(getData, 5000, state))
+    .catch(console.error)
 };
 
 export const pushAdded = (main, items, state) => {

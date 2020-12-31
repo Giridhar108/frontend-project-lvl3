@@ -28,7 +28,7 @@ export const watchedValid = onChange(state, (path, value) => {
   } else if (value === 'invalid') {
     renderFeedback(value);
   } else if (value === 'processing') {
-    renderFeedback(value)
+    renderFeedback(value);
     state.main.forEach((feed) => {
       if (!state.added.includes(feed.date)) renderFeeds(feed);
     });
@@ -37,9 +37,9 @@ export const watchedValid = onChange(state, (path, value) => {
     });
     pushAdded(state.main, state.items, state);
   } else if (value === 'processed') {
-    renderFeedback(value)
+    renderFeedback(value);
   } else if (value === 'failed') {
-    renderFeedback(value)
+    renderFeedback(value);
   }
 });
 

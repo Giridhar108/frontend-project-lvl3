@@ -2,7 +2,8 @@ export default (response) => {
   const document = new DOMParser().parseFromString(response.data.contents, 'text/xml');
   const error = document.querySelector('parsererror');
   if (error) {
-    throw new Error(`Wrong ${document}`);
+    return 'Error';
+    // throw new Error(`Wrong ${document}`);
   }
   const title = document.querySelector('title').textContent;
   const description = document.querySelector('description').textContent;

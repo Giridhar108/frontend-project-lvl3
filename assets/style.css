@@ -90,4 +90,8 @@ button.close {
       -ms-flex-pack: center;
           justify-content: center;
 }
+
+.feedback {
+  position: absolute;
+}
 /*# sourceMappingURL=style.css.map */

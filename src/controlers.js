@@ -43,18 +43,22 @@ export const getUrl = (e) => {
 };
 
 export const getData = (state) => {
-  console.log(state.inputUrl.url);
 
   axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent(state.inputUrl.url)}`)
-    .then((response) => {
-      console.log(response);
-      console.log(parser(response).items[9].pubDate);
-      if (!state.checkedUrl.includes(response.config.url)) {
-        state.checkedUrl.push(response.config.url);
-        state.main.push(parser(response).main);
-        state.items.push(parser(response).items);
-        watchedValid.inputUrl.status = 'ready';
-      } else {
+  .then((response) => {
+    // console.log(response);
+    // console.log(parser(response).items[9].pubDate);
+    if (!state.checkedUrl.includes(response.config.url)) {
+      state.checkedUrl.push(response.config.url);
+      if (parser(response) === 'Error') {
+        watchedValid.inputUrl.status = 'failed';
+        console.log(state)
+        throw new Error(`Wrong ${document}`)
+      }
+      state.main.push(parser(response).main);
+      state.items.push(parser(response).items);
+      watchedValid.inputUrl.status = 'processing';
+    } else {
         parser(response).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items.push(item);
@@ -67,6 +71,7 @@ export const getData = (state) => {
 };
 
 export const pushAdded = (main, items, state) => {
+  watchedValid.inputUrl.status = 'processed';
   main.forEach((a) => {
     if (!state.added.includes(a.date)) {
       state.added.push(a.date);

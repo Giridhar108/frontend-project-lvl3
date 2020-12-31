@@ -14,7 +14,12 @@ export default i18next.init({
         posts: 'Posts',
         createdBy: 'created by',
         setLocale: 'field_too_short',
-        valid: 'must be valid',
+        notValid: 'must be valid',
+        valid: 'valid RSS',
+        processing: 'processing...',
+        processed: 'Done!',
+        failed: 'failed',
+
       },
     },
   },

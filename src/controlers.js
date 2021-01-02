@@ -61,7 +61,7 @@ export const getData = (state) => {
         console.log(state.items);
         parser(response).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
-            state.items.push(item);
+            state.items[0].push(item);
             watchedValid.inputUrl.status = 'processing';
           }
         });

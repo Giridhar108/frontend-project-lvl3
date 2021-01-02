@@ -43,11 +43,10 @@ export const getUrl = (e) => {
 };
 
 export const getData = (state) => {
-
   axios.get(`https://cors-anywhere.herokuapp.com/${state.inputUrl.url}`)
     .then((response) => {
-    console.log(response)
-    console.log(parser(response).items[9].pubDate);
+      console.log(response);
+      console.log(parser(response).items[9].pubDate);
       if (!state.checkedUrl.includes(response.config.url)) {
         state.checkedUrl.push(response.config.url);
         if (parser(response) === 'Error') {
@@ -59,10 +58,11 @@ export const getData = (state) => {
         state.items.push(parser(response).items);
         watchedValid.inputUrl.status = 'processing';
       } else {
-        console.log(state.items)
+        console.log(state.items);
         parser(response).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items.push(item);
+            watchedValid.inputUrl.status = 'processing';
           }
         });
       }

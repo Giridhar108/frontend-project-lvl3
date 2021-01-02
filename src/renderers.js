@@ -34,11 +34,11 @@ export const renderFeedback = (value) => {
       feedback.innerHTML = i18next.t('processing');
       break;
     case 'processed':
-      button.setAttribute('disabled', 'disabled');
+      // button.setAttribute('disabled', 'disabled');
       feedback.innerHTML = i18next.t('processed');
       break;
     case 'failed':
-      button.setAttribute('disabled', 'disabled');
+      // button.setAttribute('disabled', 'disabled');
       feedback.innerHTML = i18next.t('falied');
       feedback.classList.add('text-danger');
       feedback.classList.remove('text-success');

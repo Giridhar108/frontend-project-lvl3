@@ -1,7 +1,6 @@
 import {
   validate, getUrl, openModal, listenModal,
 } from './controlers';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default () => {
   const input = document.querySelector('input');

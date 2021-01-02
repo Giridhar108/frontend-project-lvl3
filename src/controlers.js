@@ -38,15 +38,16 @@ export const getUrl = (e) => {
   const url = formData.get('url');
   watchedValid.inputUrl.status = '';
   if (!watchedPath.inputUrl.url.includes(url)) {
-    watchedPath.inputUrl.url = url;
+    watchedPath.inputUrl.url = url.trim();
   }
 };
 
 export const getData = (state) => {
-  axios.get(`https://api.allorigins.win/get?url=${encodeURIComponent(state.inputUrl.url)}`)
+
+  axios.get(`https://cors-anywhere.herokuapp.com/${state.inputUrl.url}`)
     .then((response) => {
-    // console.log(response);
-    // console.log(parser(response).items[9].pubDate);
+    console.log(response)
+    console.log(parser(response).items[9].pubDate);
       if (!state.checkedUrl.includes(response.config.url)) {
         state.checkedUrl.push(response.config.url);
         if (parser(response) === 'Error') {
@@ -58,6 +59,7 @@ export const getData = (state) => {
         state.items.push(parser(response).items);
         watchedValid.inputUrl.status = 'processing';
       } else {
+        console.log(state.items)
         parser(response).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items.push(item);

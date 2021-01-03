@@ -11,6 +11,7 @@ const body = document.querySelector('body');
 const modalTitle = document.querySelector('.modal-title');
 const modalBody = document.querySelector('.modal-body');
 const modalLind = document.querySelector('.full-article');
+
 export const renderFeedback = (value) => {
   switch (value) {
     case 'valid':
@@ -53,15 +54,17 @@ export const renderValidUrlSubmit = () => {
 
 export const renderFeeds = (feed) => {
   flow.classList.remove('disabled');
-  feedsTitle.innerHTML += `<li class="list-group-item">
-  <h3>${feed.title}</h3>
-  <p>${feed.description}</p>
-  </li>`;
+  const li = document.createElement('li');
+  li.classList.add('list-group-item');
+  li.innerHTML = `<h3>${feed.title}</h3>
+  <p>${feed.description}</p>`;
+  feedsTitle.prepend(li);
 };
 
 export const renderPosts = (item, index) => {
-  posts.innerHTML += `<li
-  class="list-group-item d-flex justify-content-between align-items-start">
+  const li = document.createElement('li');
+  li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start');
+  li.innerHTML += `
   <a
     href="${item.link}"
     class="postLink font-weight-bold"
@@ -75,8 +78,8 @@ export const renderPosts = (item, index) => {
     data-id="${index + 1}"
     data-toggle="modal"
     data-target="#modal"
-  >Preview</button>
-</li>`;
+  >Preview</button>`;
+  posts.prepend(li);
 };
 
 export const renderOpenModal = (state, kind) => {

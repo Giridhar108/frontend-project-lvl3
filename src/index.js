@@ -1,5 +1,5 @@
 import app from './app.js';
-import 'bootstrap';
-// import '../assets/style.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import '../assets/style.css';
 
 app();

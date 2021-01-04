@@ -29,10 +29,11 @@ export const watchedValid = onChange(state, (path, value) => {
     renderFeedback(value);
   } else if (value === 'processing') {
     renderFeedback(value);
+    console.log(state.items);
     state.main.forEach((feed) => {
       if (!state.added.includes(feed.date)) renderFeeds(feed);
     });
-    state.items.flat().forEach((item, index) => {
+    state.items.flat().reverse().forEach((item, index) => {
       if (!state.added.includes(item.pubDate)) renderPosts(item, index);
     });
     pushAdded(state.main, state.items, state);
@@ -45,7 +46,9 @@ export const watchedValid = onChange(state, (path, value) => {
 
 export const watchedPath = onChange(state, () => {
   renderValidUrlSubmit();
+  // if (!state.checkedUrl.includes(state.inputUrl.url)) {
   getData(state);
+  // }
 });
 
 export const watchedPostStatus = onChange(state, (path, value) => {

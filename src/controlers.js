@@ -51,14 +51,12 @@ export const getData = (state) => {
         state.checkedUrl.push(response.config.url);
         if (parser(response) === 'Error') {
           watchedValid.inputUrl.status = 'failed';
-          console.log(state);
           throw new Error(`Wrong ${document}`);
         }
         state.main.push(parser(response).main);
         state.items.push(parser(response).items);
         watchedValid.inputUrl.status = 'processing';
       } else {
-        console.log(state.items);
         parser(response).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items[0].push(item);

@@ -41,12 +41,12 @@ export const getUrl = (e) => {
     watchedPath.inputUrl.url = url.trim();
   }
 };
-
+// https://cors-anywhere.herokuapp.com/
 export const getData = (state) => {
-  axios.get(`https://cors-anywhere.herokuapp.com/${state.inputUrl.url}`)
+  axios.get(`https://api.allorigins.win/get?url=${state.inputUrl.url}`)
     .then((response) => {
       console.log(response);
-      console.log(parser(response).items[9].pubDate);
+      // console.log(parser(response).items[9].pubDate);
       if (!state.checkedUrl.includes(response.config.url)) {
         state.checkedUrl.push(response.config.url);
         if (parser(response) === 'Error') {

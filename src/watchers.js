@@ -27,9 +27,12 @@ export const watchedValid = onChange(state, (path, value) => {
     renderFeedback(value);
   } else if (value === 'invalid') {
     renderFeedback(value);
-  } else if (value === 'processing') {
+  } else if (value === 'was') {
     renderFeedback(value);
-    console.log(state.items);
+  } else if (value === '') {
+    renderFeedback(value);
+  } else if (value === 'processing') {
+    // console.log(state);
     state.main.forEach((feed) => {
       if (!state.added.includes(feed.date)) renderFeeds(feed);
     });

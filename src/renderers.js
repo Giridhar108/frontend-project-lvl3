@@ -30,12 +30,22 @@ export const renderFeedback = (value) => {
       input.classList.add('is-invalid');
       input.classList.remove('is-valid');
       break;
-    case 'processing':
+    case 'was':
+      button.setAttribute('disabled', 'disabled');
+      feedback.innerHTML = i18next.t('was');
+      feedback.classList.add('text-danger');
+      feedback.classList.remove('text-success');
+      input.classList.add('is-invalid');
+      input.classList.remove('is-valid');
+      break;
+    case '':
       button.setAttribute('disabled', 'disabled');
       feedback.innerHTML = i18next.t('processing');
       break;
     case 'processed':
       // button.setAttribute('disabled', 'disabled');
+      feedback.classList.remove('text-danger');
+      feedback.classList.add('text-success');
       feedback.innerHTML = i18next.t('processed');
       break;
     case 'failed':
@@ -62,6 +72,7 @@ export const renderFeeds = (feed) => {
 };
 
 export const renderPosts = (item, index) => {
+  console.log('post');
   const li = document.createElement('li');
   li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start');
   li.innerHTML += `

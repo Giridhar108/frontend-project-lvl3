@@ -39,7 +39,7 @@ export const renderFeedback = (value) => {
       input.classList.remove('is-valid');
       break;
     case '':
-      button.setAttribute('disabled', 'disabled');
+      // button.setAttribute('disabled', 'disabled');
       feedback.innerHTML = i18next.t('processing');
       break;
     case 'processed':

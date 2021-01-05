@@ -72,7 +72,6 @@ export const renderFeeds = (feed) => {
 };
 
 export const renderPosts = (item, index) => {
-  console.log('post');
   const li = document.createElement('li');
   li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start');
   li.innerHTML += `
@@ -93,7 +92,8 @@ export const renderPosts = (item, index) => {
   posts.prepend(li);
 };
 
-export const renderOpenModal = (state, kind) => {
+export const renderOpenModal = (state, value) => {
+  const { kind } = value;
   if (kind.classList[0] === 'btn') {
     modalTitle.textContent = `${state.items.flat()[kind.dataset.id - 1].title}`;
     modalBody.textContent = `${
@@ -112,7 +112,8 @@ export const renderOpenModal = (state, kind) => {
   }
 };
 
-export const renderClodseModal = (kindBtn) => {
+export const renderClodseModal = (value) => {
+  const { kindBtn } = value;
   if (
     kindBtn.classList[0] === 'close'
     || kindBtn.classList[0] === 'modal'

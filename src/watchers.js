@@ -7,13 +7,11 @@ import {
   renderOpenModal,
   renderClodseModal,
 } from './renderers';
-import { getData, pushAdded } from './controlers';
+// import { pushAdded } from './controlers';
 
 const state = {
-  inputUrl: {
-    status: 'filling',
-    url: '',
-  },
+  status: 'filling',
+  url: '',
   checkedUrl: [],
   main: [],
   items: [],
@@ -21,6 +19,44 @@ const state = {
   postActive: {},
   modalBtn: {},
 };
+
+// export default (state) => {
+//   const watchedState = onChange(state, (path, value) => {
+//     switch (path) {
+//       case 'status':
+//         if (value === 'processing') {
+//           state.main.forEach((feed) => {
+//             if (!state.added.includes(feed.date)) renderFeeds(feed);
+//           });
+//           state.items
+//             .flat()
+//             .reverse()
+//             .forEach((item, index) => {
+//               if (!state.added.includes(item.pubDate)) renderPosts(item, index);
+//             });
+//           // pushAdded(state.main, state.items, state);
+//         }
+//         renderFeedback(value);
+//         break;
+//       case 'url':
+//         renderFeedback(value);
+//         break;
+//       case 'checkedUrl':
+//         renderValidUrlSubmit();
+//         // getData(state);
+//         break;
+//       case 'postActive':
+//         renderOpenModal(state, value);
+//         break;
+//       case 'modalBtn':
+//         renderClodseModal(value);
+//         break;
+//       default:
+//         break;
+//     }
+//   });
+//   return watchedState;
+// };
 
 export const watchedValid = onChange(state, (path, value) => {
   if (value === 'valid') {
@@ -36,10 +72,13 @@ export const watchedValid = onChange(state, (path, value) => {
     state.main.forEach((feed) => {
       if (!state.added.includes(feed.date)) renderFeeds(feed);
     });
-    state.items.flat().reverse().forEach((item, index) => {
-      if (!state.added.includes(item.pubDate)) renderPosts(item, index);
-    });
-    pushAdded(state.main, state.items, state);
+    state.items
+      .flat()
+      .reverse()
+      .forEach((item, index) => {
+        if (!state.added.includes(item.pubDate)) renderPosts(item, index);
+      });
+    // pushAdded(state.main, state.items, state);
   } else if (value === 'processed') {
     renderFeedback(value);
   } else if (value === 'failed') {
@@ -50,7 +89,7 @@ export const watchedValid = onChange(state, (path, value) => {
 export const watchedPath = onChange(state, () => {
   renderValidUrlSubmit();
   // if (!state.checkedUrl.includes(state.inputUrl.url)) {
-  getData(state);
+  // getData(state);
   // }
 });
 

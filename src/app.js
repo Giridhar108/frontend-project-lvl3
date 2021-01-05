@@ -1,8 +1,10 @@
 import {
   validate, getUrl, openModal, listenModal,
 } from './controlers';
+// import getWatchedState from './watchers';
 
 export default () => {
+  // getWatchedState(state);
   const input = document.querySelector('input');
   const form = document.querySelector('.rss-form');
   const postClick = document.querySelector('.posts');

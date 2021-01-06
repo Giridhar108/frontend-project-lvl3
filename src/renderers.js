@@ -1,5 +1,7 @@
 import i18next from 'i18next';
 
+export default () => {
+
 const input = document.querySelector('input');
 const button = document.querySelector('.col-auto>button');
 const feedback = document.querySelector('.feedback');
@@ -12,7 +14,7 @@ const modalTitle = document.querySelector('.modal-title');
 const modalBody = document.querySelector('.modal-body');
 const modalLind = document.querySelector('.full-article');
 
-export const renderFeedback = (value) => {
+const renderFeedback = (value) => {
   switch (value) {
     case 'valid':
       button.removeAttribute('disabled');
@@ -39,7 +41,7 @@ export const renderFeedback = (value) => {
       input.classList.remove('is-valid');
       break;
     case '':
-      // button.setAttribute('disabled', 'disabled');
+      button.setAttribute('disabled', 'disabled');
       feedback.innerHTML = i18next.t('processing');
       break;
     case 'processed':
@@ -57,12 +59,13 @@ export const renderFeedback = (value) => {
     default: throw new Error(`Unknown ${value}`);
   }
 };
-export const renderValidUrlSubmit = () => {
+
+const renderValidUrlSubmit = () => {
   input.value = '';
   input.classList.remove('is-valid');
 };
 
-export const renderFeeds = (feed) => {
+const renderFeeds = (feed) => {
   flow.classList.remove('disabled');
   const li = document.createElement('li');
   li.classList.add('list-group-item');
@@ -71,7 +74,7 @@ export const renderFeeds = (feed) => {
   feedsTitle.prepend(li);
 };
 
-export const renderPosts = (item, index) => {
+const renderPosts = (item, index) => {
   const li = document.createElement('li');
   li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start');
   li.innerHTML += `
@@ -92,7 +95,7 @@ export const renderPosts = (item, index) => {
   posts.prepend(li);
 };
 
-export const renderOpenModal = (state, value) => {
+const renderOpenModal = (state, value) => {
   const { kind } = value;
   if (kind.classList[0] === 'btn') {
     modalTitle.textContent = `${state.items.flat()[kind.dataset.id - 1].title}`;
@@ -112,7 +115,7 @@ export const renderOpenModal = (state, value) => {
   }
 };
 
-export const renderClodseModal = (value) => {
+const renderClodseModal = (value) => {
   const { kindBtn } = value;
   if (
     kindBtn.classList[0] === 'close'
@@ -124,3 +127,12 @@ export const renderClodseModal = (value) => {
     body.classList.remove('modal-open');
   }
 };
+  return {
+  renderFeedback,
+  renderValidUrlSubmit,
+  renderFeeds,
+  renderPosts,
+  renderOpenModal,
+  renderClodseModal,
+  }
+}

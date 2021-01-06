@@ -1,13 +1,22 @@
 import onChange from 'on-change';
-import {
-  renderFeedback,
+import
+// {
+//   renderFeedback,
+//   renderValidUrlSubmit,
+//   renderFeeds,
+//   renderPosts,
+//   renderOpenModal,
+//   renderClodseModal,
+// }
+ render from './renderers';
+// import { pushAdded } from './controlers';
+
+const { renderFeedback,
   renderValidUrlSubmit,
   renderFeeds,
   renderPosts,
   renderOpenModal,
-  renderClodseModal,
-} from './renderers';
-// import { pushAdded } from './controlers';
+  renderClodseModal,} = render()
 
 const state = {
   status: 'filling',

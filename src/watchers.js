@@ -8,15 +8,17 @@ import
 //   renderOpenModal,
 //   renderClodseModal,
 // }
- render from './renderers';
+render from './renderers';
 // import { pushAdded } from './controlers';
 
-const { renderFeedback,
+const {
+  renderFeedback,
   renderValidUrlSubmit,
   renderFeeds,
   renderPosts,
   renderOpenModal,
-  renderClodseModal,} = render()
+  renderClodseModal,
+} = render();
 
 const state = {
   status: 'filling',

@@ -27,7 +27,6 @@ export default (initState, elements) => {
   // });
 
   const watchedState = onChange(initState, (path, value) => {
-    console.log(path);
     switch (path) {
       case 'status':
         renderFeedback(initState.status, initState, elements);

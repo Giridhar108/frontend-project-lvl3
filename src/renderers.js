@@ -37,7 +37,6 @@ export default () => {
   };
 
   const renderFeedback = (value, initState, elements) => {
-    console.log(value);
     switch (value) {
       case 'valid':
         elements.button.removeAttribute('disabled');

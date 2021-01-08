@@ -81,6 +81,7 @@ export default () => {
         break;
       case 'processing':
         initState.main.forEach((feed) => {
+          console.log(initState.added);
           if (!initState.added.includes(feed.date)) renderFeeds(feed, elements);
         });
         initState.items

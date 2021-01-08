@@ -4,9 +4,10 @@ export default (data) => {
   if (error) {
     return 'Error';
   }
+
   const title = document.querySelector('title').textContent;
   const description = document.querySelector('description').textContent;
-  const date = document.querySelector('pubDate').textContent;
+  const pubDate = document.querySelector('pubDate').textContent;
 
   const items = [...document.querySelectorAll('item')].map((item) => ({
     title: item.querySelector('title').textContent,
@@ -19,7 +20,7 @@ export default (data) => {
     main: {
       title,
       description,
-      date,
+      pubDate,
     },
     items,
   };

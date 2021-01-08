@@ -16,6 +16,6 @@ export default {
     failed: 'failed',
     was: 'it was',
     sourceInvalid: 'This source doesn\'t contain valid rss',
-    NetworkError: 'Network error'
+    NetworkError: 'Network error',
   },
 };

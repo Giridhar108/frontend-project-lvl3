@@ -18,13 +18,13 @@ const pushAdded = (main, items, state) => {
   state.status = 'processed';
 };
 
-// https://cors-anywhere.herokuapp.com/
+
+
+
 export const getData = (state) => {
   // axios.get(`https://api.allorigins.win/raw?url=${state.url}`)
   axios.get(`https://cors-anywhere.herokuapp.com/${state.url}`)
     .then((response) => {
-      // console.log(response);
-      // console.log(parser(response).items[9].pubDate);
       if (!state.checkedUrl.includes(response.config.url)) {
         if (parser(response) === 'Error') {
           state.status = 'failed';
@@ -45,13 +45,14 @@ export const getData = (state) => {
       pushAdded(state.main, state.items, state);
     })
     .then(() => setTimeout(getData, 5000, state))
-    .catch((reject) => {
-      if (reject) {
+    .catch(() => {
         state.url = '';
         state.status = 'failed';
-      }
     });
 };
+
+
+
 
 export const validate = (e, state) => {
   const url = e.target.value;

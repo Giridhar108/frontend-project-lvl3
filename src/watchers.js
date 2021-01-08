@@ -1,15 +1,5 @@
-import onChange from 'on-change'
-import
-// {
-//   renderFeedback,
-//   renderValidUrlSubmit,
-//   renderFeeds,
-//   renderPosts,
-//   renderOpenModal,
-//   renderClodseModal,
-// }
-render from './renderers';
-// import { pushAdded } from './controlers';
+import onChange from 'on-change';
+import render from './renderers';
 
 const {
   renderFeedback,
@@ -17,7 +7,6 @@ const {
   renderOpenModal,
   renderClodseModal,
 } = render();
-
 
 export default (initState, elements) => {
   // const handlePosts = (state) => {};
@@ -38,7 +27,7 @@ export default (initState, elements) => {
   // });
 
   const watchedState = onChange(initState, (path, value) => {
-    console.log(path)
+    console.log(path);
     switch (path) {
       case 'status':
         renderFeedback(initState.status, initState, elements);

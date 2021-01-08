@@ -1,15 +1,8 @@
 import * as yup from 'yup';
 import { setLocale } from 'yup';
 import axios from 'axios';
-// import {
-//   watchedValid,
-//   watchedPath,
-//   watchedPostStatus,
-//   watchedModalStatus,
-// } from './watchers';
+import i18next from 'i18next';
 import parser from './parser';
-import i18 from './i18';
-
 
 const pushAdded = (main, items, state) => {
   main.forEach((a) => {
@@ -64,7 +57,7 @@ export const validate = (e, state) => {
   const url = e.target.value;
   setLocale({
     number: {
-      min: ({ min }) => ({ key: i18.t('setLocale'), values: { min } }),
+      min: ({ min }) => ({ key: i18next.t('setLocale'), values: { min } }),
     },
   });
 
@@ -89,7 +82,7 @@ export const validate = (e, state) => {
 
 export const getUrl = (e, state) => {
   e.preventDefault();
-  console.log(state)
+  console.log(state);
   const formData = new FormData(e.target);
   const url = formData.get('url');
   state.status = '';

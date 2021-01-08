@@ -19,35 +19,33 @@ const pushAdded = (main, items, state) => {
 };
 
 export const getData = (state) => {
-  const promises = state.url.map((url) => {
-    return axios.get(`https://api.allorigins.win/raw?url=${url}`)
+  const promises = state.url.map((url) => axios.get(`https://api.allorigins.win/raw?url=${url}`)
     // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
-      .then((response) => {
-        if (!state.checkedUrl.includes(response.config.url)) {
-          if (parsering(response.data) === 'Error') {
-            state.status = 'failed';
-            throw new Error(`Wrong ${document}`);
-          }
-          state.checkedUrl.push(response.config.url);
-          state.main.push(parsering(response.data).main);
-          state.items.push(parsering(response.data).items);
-          state.status = 'processing';
-        } else {
-          parsering(response.data).items.forEach((item) => {
-            if (!state.added.includes(item.pubDate)) {
-              state.items[0].push(item);
-              state.status = 'processing';
-            }
-          });
+    .then((response) => {
+      if (!state.checkedUrl.includes(response.config.url)) {
+        if (parsering(response.data) === 'Error') {
+          state.status = 'failed';
+          throw new Error(`Wrong ${document}`);
         }
-        pushAdded(state.main, state.items, state);
-      })
+        state.checkedUrl.push(response.config.url);
+        state.main.push(parsering(response.data).main);
+        state.items.push(parsering(response.data).items);
+        state.status = 'processing';
+      } else {
+        parsering(response.data).items.forEach((item) => {
+          if (!state.added.includes(item.pubDate)) {
+            state.items[0].push(item);
+            state.status = 'processing';
+          }
+        });
+      }
+      pushAdded(state.main, state.items, state);
+    })
     // .then(() => setTimeout(getData, 5000, state))
-      .catch(() => {
-        state.url = '';
-        state.status = 'failed';
-      });
-  });
+    .catch(() => {
+      state.url = [];
+      state.status = 'failed';
+    }));
   Promise.all(promises).finally(() => {
     setTimeout(getData, 5000, state);
   });

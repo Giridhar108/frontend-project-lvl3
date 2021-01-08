@@ -2,7 +2,7 @@ import * as yup from 'yup';
 import { setLocale } from 'yup';
 import axios from 'axios';
 import i18next from 'i18next';
-import parser from './parser';
+import parsering from './parsering';
 
 const pushAdded = (main, items, state) => {
   main.forEach((a) => {
@@ -25,16 +25,16 @@ export const getData = (state) => {
   // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
       if (!state.checkedUrl.includes(response.config.url)) {
-        if (parser(response.data) === 'Error') {
+        if (parsering(response.data) === 'Error') {
           state.status = 'failed';
           throw new Error(`Wrong ${document}`);
         }
         state.checkedUrl.push(response.config.url);
-        state.main.push(parser(response.data).main);
-        state.items.push(parser(response.data).items);
+        state.main.push(parsering(response.data).main);
+        state.items.push(parsering(response.data).items);
         state.status = 'processing';
       } else {
-        parser(response.data).items.forEach((item) => {
+        parsering(response.data).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items[0].push(item);
             state.status = 'processing';

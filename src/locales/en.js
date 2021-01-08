@@ -12,7 +12,7 @@ export default {
     notValid: 'must be valid',
     valid: 'valid RSS',
     processing: 'processing...',
-    processed: 'Done!',
+    processed: 'Rss has been loaded',
     failed: 'failed',
     was: 'it was',
   },

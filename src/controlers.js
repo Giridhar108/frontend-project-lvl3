@@ -1,14 +1,15 @@
 import * as yup from 'yup';
 import { setLocale } from 'yup';
 import axios from 'axios';
-import {
-  watchedValid,
-  watchedPath,
-  watchedPostStatus,
-  watchedModalStatus,
-} from './watchers';
+// import {
+//   watchedValid,
+//   watchedPath,
+//   watchedPostStatus,
+//   watchedModalStatus,
+// } from './watchers';
 import parser from './parser';
 import i18 from './i18';
+
 
 const pushAdded = (main, items, state) => {
   main.forEach((a) => {
@@ -21,7 +22,7 @@ const pushAdded = (main, items, state) => {
       state.added.push(a.pubDate);
     }
   });
-  watchedValid.status = 'processed';
+  state.status = 'processed';
 };
 
 // https://cors-anywhere.herokuapp.com/
@@ -33,18 +34,18 @@ export const getData = (state) => {
       // console.log(parser(response).items[9].pubDate);
       if (!state.checkedUrl.includes(response.config.url)) {
         if (parser(response) === 'Error') {
-          watchedValid.status = 'failed';
+          state.status = 'failed';
           throw new Error(`Wrong ${document}`);
         }
         state.checkedUrl.push(response.config.url);
         state.main.push(parser(response).main);
         state.items.push(parser(response).items);
-        watchedValid.status = 'processing';
+        state.status = 'processing';
       } else {
         parser(response).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items[0].push(item);
-            watchedValid.status = 'processing';
+            state.status = 'processing';
           }
         });
       }
@@ -53,14 +54,13 @@ export const getData = (state) => {
     .then(() => setTimeout(getData, 5000, state))
     .catch((reject) => {
       if (reject) {
-        watchedPath.url = '';
-        watchedValid.status = 'failed';
-        console.log(reject);
+        state.url = '';
+        state.status = 'failed';
       }
     });
 };
 
-export const validate = (e) => {
+export const validate = (e, state) => {
   const url = e.target.value;
   setLocale({
     number: {
@@ -77,34 +77,34 @@ export const validate = (e) => {
       url: `${url}`,
     })
     .then((valid) => {
-      if (valid && !watchedPath.url.includes(url)) {
-        watchedValid.status = 'valid';
-      } else if (valid && watchedPath.url.includes(url)) {
-        watchedValid.status = 'was';
+      if (valid && !state.url.includes(url)) {
+        state.status = 'valid';
+      } else if (valid && state.url.includes(url)) {
+        state.status = 'was';
       } else {
-        watchedValid.status = 'invalid';
+        state.status = 'invalid';
       }
     });
 };
 
-export const getUrl = (e) => {
+export const getUrl = (e, state) => {
   e.preventDefault();
-
+  console.log(state)
   const formData = new FormData(e.target);
   const url = formData.get('url');
-  watchedValid.status = '';
-  if (!watchedPath.checkedUrl.includes(url)) {
-    watchedPath.url = url.trim();
-    getData(watchedPath);
+  state.status = '';
+  if (!state.checkedUrl.includes(url)) {
+    state.url = url.trim();
+    getData(state);
   }
 };
 
-export const openModal = (event) => {
+export const openModal = (event, state) => {
   const btn = event.path[0];
-  watchedPostStatus.postActive = { btn };
+  state.postActive = { btn };
 };
 
-export const listenModal = (event) => {
+export const listenModal = (event, state) => {
   const btn = event.path[0];
-  watchedModalStatus.modalBtn = { kindBtn: btn };
+  state.modalBtn = { kindBtn: btn };
 };

@@ -1,81 +1,89 @@
-import i18next from 'i18next';
+import i18next from "i18next";
 
 export default () => {
-  const input = document.querySelector('input');
-  const button = document.querySelector('.col-auto>button');
-  const feedback = document.querySelector('.feedback');
-  const flow = document.querySelector('.flow');
-  const feedsTitle = document.querySelector('.feeds > ul');
-  const posts = document.querySelector('.posts > ul');
-  const modal = document.querySelector('#modal');
-  const body = document.querySelector('body');
-  const modalTitle = document.querySelector('.modal-title');
-  const modalBody = document.querySelector('.modal-body');
-  const modalLind = document.querySelector('.full-article');
 
-  const renderFeedback = (value) => {
+  const renderFeedback = (value, initState, elements) => {
+    console.log(value);
     switch (value) {
-      case 'valid':
-        button.removeAttribute('disabled');
-        input.classList.add('is-valid');
-        input.classList.remove('is-invalid');
-        feedback.innerHTML = i18next.t('valid');
-        feedback.classList.remove('text-danger');
-        feedback.classList.add('text-success');
+      case "valid":
+        elements.button.removeAttribute("disabled");
+        elements.input.classList.add("is-valid");
+        elements.input.classList.remove("is-invalid");
+        elements.feedback.innerHTML = i18next.t("valid");
+        elements.feedback.classList.remove("text-danger");
+        elements.feedback.classList.add("text-success");
         break;
-      case 'invalid':
-        button.setAttribute('disabled', 'disabled');
-        feedback.innerHTML = i18next.t('notValid');
-        feedback.classList.add('text-danger');
-        feedback.classList.remove('text-success');
-        input.classList.add('is-invalid');
-        input.classList.remove('is-valid');
+      case "invalid":
+        elements.button.setAttribute("disabled", "disabled");
+        elements.feedback.innerHTML = i18next.t("notValid");
+        elements.feedback.classList.add("text-danger");
+        elements.feedback.classList.remove("text-success");
+        elements.input.classList.add("is-invalid");
+        elements.input.classList.remove("is-valid");
         break;
-      case 'was':
-        button.setAttribute('disabled', 'disabled');
-        feedback.innerHTML = i18next.t('was');
-        feedback.classList.add('text-danger');
-        feedback.classList.remove('text-success');
-        input.classList.add('is-invalid');
-        input.classList.remove('is-valid');
+      case "was":
+        elements.button.setAttribute("disabled", "disabled");
+        elements.feedback.innerHTML = i18next.t("was");
+        elements.feedback.classList.add("text-danger");
+        elements.feedback.classList.remove("text-success");
+        elements.input.classList.add("is-invalid");
+        elements.input.classList.remove("is-valid");
         break;
-      case '':
-        button.setAttribute('disabled', 'disabled');
-        feedback.innerHTML = i18next.t('processing');
+      case "":
+        elements.button.setAttribute("disabled", "disabled");
+        elements.feedback.innerHTML = i18next.t("processing");
         break;
-      case 'processed':
-      // button.setAttribute('disabled', 'disabled');
-        feedback.classList.remove('text-danger');
-        feedback.classList.add('text-success');
-        feedback.innerHTML = i18next.t('processed');
+      case "processed":
+        // button.setAttribute('disabled', 'disabled');
+        elements.feedback.classList.remove("text-danger");
+        elements.feedback.classList.add("text-success");
+        elements.feedback.innerHTML = i18next.t("processed");
         break;
-      case 'failed':
-      // button.setAttribute('disabled', 'disabled');
-        feedback.innerHTML = i18next.t('falied');
-        feedback.classList.add('text-danger');
-        feedback.classList.remove('text-success');
+      case "failed":
+        // button.setAttribute('disabled', 'disabled');
+        elements.feedback.innerHTML = i18next.t("falied");
+        elements.feedback.classList.add("text-danger");
+        elements.feedback.classList.remove("text-success");
         break;
-      default: throw new Error(`Unknown ${value}`);
+      case "processing":
+        initState.main.forEach((feed) => {
+          if (!initState.added.includes(feed.date)) renderFeeds(feed, elements);
+        });
+        initState.items
+          .flat()
+          .reverse()
+          .forEach((item, index) => {
+            if (!initState.added.includes(item.pubDate))
+              renderPosts(item, index, elements);
+          });
+        break;
+      default:
+        throw new Error(`Unknown ${value}`);
     }
   };
 
-  const renderValidUrlSubmit = () => {
-    input.value = '';
-    input.classList.remove('is-valid');
+  const renderValidUrlSubmit = (elements) => {
+    elements.input.value = "";
+    elements.input.classList.remove("is-valid");
   };
 
-  const renderFeeds = (feed) => {
-    flow.classList.remove('disabled');
-    const li = document.createElement('li');
-    li.classList.add('list-group-item');
+  const renderFeeds = (feed, elements) => {
+    elements.flow.classList.remove("disabled");
+    const li = document.createElement("li");
+    li.classList.add("list-group-item");
     li.innerHTML = `<h3>${feed.title}</h3>
   <p>${feed.description}</p>`;
-    feedsTitle.prepend(li);
+    elements.feedsTitle.prepend(li);
   };
 
-  const renderPosts = (item, index) => {
-    const li = document.createElement('li');
-    li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start');
+  const renderPosts = (item, index, elements) => {
+    const li = document.createElement("li");
+    li.classList.add(
+      "list-group-item",
+      "d-flex",
+      "justify-content-between",
+      "align-items-start"
+    );
     li.innerHTML += `
   <a
     href="${item.link}"
@@ -91,39 +99,43 @@ export default () => {
     data-toggle="modal"
     data-target="#modal"
   >Preview</button>`;
-    posts.prepend(li);
+    elements.posts.prepend(li);
   };
 
-  const renderOpenModal = (state, value) => {
-    const { kind } = value;
-    if (kind.classList[0] === 'btn') {
-      modalTitle.textContent = `${state.items.flat()[kind.dataset.id - 1].title}`;
-      modalBody.textContent = `${
-        state.items.flat()[kind.dataset.id - 1].description
+  const renderOpenModal = (state, value, elements) => {
+    const { btn } = value;
+    if (btn.classList[0] === "btn") {
+      elements.modalTitle.textContent = `${
+        state.items.flat()[btn.dataset.id - 1].title
       }`;
-      modalLind.setAttribute(
-        'href',
-        `${state.items.flat()[kind.dataset.id - 1].link}`,
+      elements.modalBody.textContent = `${
+        state.items.flat()[btn.dataset.id - 1].description
+      }`;
+      elements.modalLind.setAttribute(
+        "href",
+        `${state.items.flat()[btn.dataset.id - 1].link}`
       );
-      modal.style.display = 'block';
-      body.classList.add('modal-open');
-      kind.previousSibling.previousSibling.classList.add('font-weight-normal');
+      elements.modal.style.display = "block";
+      elements.body.classList.add("modal-open");
+      btn.previousSibling.previousSibling.classList.add(
+        "font-weight-normal"
+      );
     }
-    if (kind.classList[0] === 'postLink') {
-      kind.classList.add('font-weight-normal');
+    if (btn.classList[0] === "postLink") {
+      elements.btn.classList.add("font-weight-normal");
     }
   };
 
-  const renderClodseModal = (value) => {
+  const renderClodseModal = (value, elements) => {
     const { kindBtn } = value;
     if (
-      kindBtn.classList[0] === 'close'
-    || kindBtn.classList[0] === 'modal'
-    || kindBtn.textContent.trim() === 'Close'
-    || kindBtn.textContent.trim() === 'x'
+      kindBtn.classList[0] === "close" ||
+      kindBtn.classList[0] === "modal" ||
+      kindBtn.textContent.trim() === "Close" ||
+      kindBtn.textContent.trim() === "x"
     ) {
-      modal.style.display = '';
-      body.classList.remove('modal-open');
+      elements.modal.style.display = "";
+      elements.body.classList.remove("modal-open");
     }
   };
   return {

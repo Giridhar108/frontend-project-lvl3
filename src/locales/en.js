@@ -9,11 +9,13 @@ export default {
     posts: 'Posts',
     createdBy: 'created by',
     setLocale: 'field_too_short',
-    notValid: 'must be valid',
+    notValid: 'Must be valid url',
     valid: 'valid RSS',
     processing: 'processing...',
     processed: 'Rss has been loaded',
     failed: 'failed',
     was: 'it was',
+    sourceInvalid: 'This source doesn\'t contain valid rss',
+    NetworkError: 'Network error'
   },
 };

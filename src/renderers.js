@@ -28,6 +28,7 @@ export default () => {
   >${item.title}</a>
   <button
     type="button"
+    role="button"
     class="btn btn-primary btn-sm"
     data-id="${index + 1}"
     data-toggle="modal"

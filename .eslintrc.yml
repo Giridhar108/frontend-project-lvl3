@@ -18,3 +18,9 @@ extends:
 rules:
   no-console: 0
   import/extensions: 0
+  no-param-reassign:
+  - 'error'
+  - props: true
+    ignorePropertyModificationsFor:
+    - 'state'
+    - 'elements'

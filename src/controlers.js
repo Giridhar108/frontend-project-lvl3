@@ -19,8 +19,8 @@ const pushAdded = (main, items, state) => {
 };
 
 export const getData = (state) => {
-  const promises = state.url.forEach((url) => {
-    axios.get(`https://api.allorigins.win/raw?url=${url}`)
+  const promises = state.url.map((url) => {
+    return axios.get(`https://api.allorigins.win/raw?url=${url}`)
     // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
       .then((response) => {
         if (!state.checkedUrl.includes(response.config.url)) {

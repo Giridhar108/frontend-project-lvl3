@@ -18,24 +18,23 @@ const pushAdded = (main, items, state) => {
   state.status = 'processed';
 };
 
-
-
-
 export const getData = (state) => {
-  // axios.get(`https://api.allorigins.win/raw?url=${state.url}`)
-  axios.get(`https://cors-anywhere.herokuapp.com/${state.url}`)
+  const promises = state.url.map(url => {
+
+  axios.get(`https://api.allorigins.win/raw?url=${url}`)
+  // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
       if (!state.checkedUrl.includes(response.config.url)) {
-        if (parser(response) === 'Error') {
+        if (parser(response.data) === 'Error') {
           state.status = 'failed';
           throw new Error(`Wrong ${document}`);
         }
         state.checkedUrl.push(response.config.url);
-        state.main.push(parser(response).main);
-        state.items.push(parser(response).items);
+        state.main.push(parser(response.data).main);
+        state.items.push(parser(response.data).items);
         state.status = 'processing';
       } else {
-        parser(response).items.forEach((item) => {
+        parser(response.data).items.forEach((item) => {
           if (!state.added.includes(item.pubDate)) {
             state.items[0].push(item);
             state.status = 'processing';
@@ -44,10 +43,14 @@ export const getData = (state) => {
       }
       pushAdded(state.main, state.items, state);
     })
-    .then(() => setTimeout(getData, 5000, state))
+    // .then(() => setTimeout(getData, 5000, state))
     .catch(() => {
         state.url = '';
         state.status = 'failed';
+    });
+  })
+    Promise.all(promises).finally(() => {
+      setTimeout(getData, 5000, state);
     });
 };
 
@@ -83,12 +86,11 @@ export const validate = (e, state) => {
 
 export const getUrl = (e, state) => {
   e.preventDefault();
-  console.log(state);
   const formData = new FormData(e.target);
   const url = formData.get('url');
   state.status = '';
   if (!state.checkedUrl.includes(url)) {
-    state.url = url.trim();
+    state.url.push(url.trim());
     getData(state);
   }
 };

@@ -8,7 +8,7 @@ import english from './locales/en';
 export default () => {
   const state = {
     status: 'filling',
-    url: '',
+    url: [],
     checkedUrl: [],
     main: [],
     items: [],

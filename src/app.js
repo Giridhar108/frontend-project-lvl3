@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import {
-  validate, getUrl, openModal, listenModal,
+  validate, getUrl, openModal, listenModal, fetchNewPosts,
 } from './controlers';
 import watchState from './watchers';
 import english from './locales/en';
@@ -42,13 +42,6 @@ export default () => {
     document.querySelector('.text-center').innerHTML = i18next.t('createdBy');
   };
 
-  i18next.init({
-    lng: 'en',
-    resources: {
-      en: english,
-    },
-  }).then(texts);
-
   // getWatchedState(state);
   const input = document.querySelector('input');
   const form = document.querySelector('.rss-form');
@@ -60,4 +53,15 @@ export default () => {
   input.addEventListener('input', (event) => validate(event, watchedState));
   postClick.addEventListener('click', (event) => openModal(event, watchedState));
   modalClick.addEventListener('click', (event) => listenModal(event, watchedState));
+
+  setTimeout(fetchNewPosts, 5000, watchedState);
+
+  return i18next
+    .init({
+      lng: 'en',
+      resources: {
+        en: english,
+      },
+    })
+    .then(texts);
 };

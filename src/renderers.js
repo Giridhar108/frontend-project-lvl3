@@ -76,9 +76,9 @@ export default () => {
         // elements.feedback.classList.remove('text-danger');
         // elements.feedback.classList.add('text-success');
         // elements.feedback.innerHTML = i18next.t('processed');
-        elements.feedback.innerHTML = '';
         elements.feedbackTwo.innerHTML = i18next.t('processed');
         elements.feedbackTwo.classList.add('text-success');
+        elements.feedback.innerHTML = '';
         break;
       case 'failed':
         elements.feedback.innerHTML = i18next.t('falied');

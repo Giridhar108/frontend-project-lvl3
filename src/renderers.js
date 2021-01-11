@@ -68,7 +68,7 @@ export default () => {
         break;
       case '':
         elements.input.setAttribute('readonly', '');
-        elements.button.setAttribute('disabled', 'disabled');
+        // elements.button.setAttribute('disabled', 'disabled');
         // elements.feedback.innerHTML = i18next.t('processing');
         break;
       case 'processed':

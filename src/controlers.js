@@ -19,7 +19,6 @@ const pushAdded = (main, items, state) => {
 };
 
 export const getData = (state) => {
-  console.log('here');
   state.url.map((url) => axios
     .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
     // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)

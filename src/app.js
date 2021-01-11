@@ -53,7 +53,7 @@ export default () => {
   const watchedState = watchState(state, elements);
 
   form.addEventListener('submit', (event) => getUrl(event, watchedState));
-  input.addEventListener('input', (event) => validate(event, watchedState));
+  // input.addEventListener('input', (event) => validate(event, watchedState));
   postClick.addEventListener('click', (event) => openModal(event, watchedState));
   modalClick.addEventListener('click', (event) => listenModal(event, watchedState));
 

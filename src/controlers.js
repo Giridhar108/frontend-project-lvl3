@@ -68,6 +68,7 @@ export const validate = (e, state) => {
 };
 
 export const getUrl = (e, state) => {
+  validate(e, state)
   e.preventDefault();
   const formData = new FormData(e.target);
   const url = formData.get('url');

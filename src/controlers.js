@@ -79,6 +79,7 @@ export const getUrl = (e, state) => {
 };
 
 export const openModal = (event, state) => {
+  console.log(event.path)
   const btn = event.path[0];
   state.postActive = { btn };
 };

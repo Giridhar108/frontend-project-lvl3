@@ -1,91 +1,91 @@
 // @import "../node_modules/bootstrap/scss/bootstrap";
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-bottom: 0.5rem;
-  font-weight: 400;
-  line-height: 1.2;
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   margin-bottom: 0.5rem;
+//   font-weight: 400;
+//   line-height: 1.2;
+// }
 
-a {
-  text-decoration: none;
-}
+// a {
+//   text-decoration: none;
+// }
 
-.bg-dark {
-  background-color: #343a40 !important;
-}
+// .bg-dark {
+//   background-color: #343a40 !important;
+// }
 
-.form-row {
-  display: flex;
-}
+// .form-row {
+//   display: flex;
+// }
 
-.form-row > [class*="col-"] {
-  padding-right: 5px;
-  padding-left: 10px;
-}
+// .form-row > [class*="col-"] {
+//   padding-right: 5px;
+//   padding-left: 10px;
+// }
 
-.show {
-  display: none;
-}
+// .show {
+//   display: none;
+// }
 
-.modal-open {
-  overflow: hidden;
-}
-.fade {
-  background: #000;
-  // opacity: 0.5;
-}
+// .modal-open {
+//   overflow: hidden;
+// }
+// .fade {
+//   background: #000;
+//   // opacity: 0.5;
+// }
 
-.close {
-  float: right;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #000;
-  text-shadow: 0 1px 0 #fff;
-  opacity: .5;
-  &:hover {
-    opacity: 1;
-  }
-}
+// .close {
+//   float: right;
+//   font-size: 1.5rem;
+//   font-weight: 700;
+//   line-height: 1;
+//   color: #000;
+//   text-shadow: 0 1px 0 #fff;
+//   opacity: .5;
+//   &:hover {
+//     opacity: 1;
+//   }
+// }
 
-button.close {
-  padding: 0;
-  background-color: transparent;
-  border: 0;
-}
+// button.close {
+//   padding: 0;
+//   background-color: transparent;
+//   border: 0;
+// }
 
-.modal-header .close {
-  padding: 1rem 1rem;
-  margin: -1rem -1rem -1rem auto;
-}
-.btn {
-  &:active {
-    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-  }
-}
+// .modal-header .close {
+//   padding: 1rem 1rem;
+//   margin: -1rem -1rem -1rem auto;
+// }
+// .btn {
+//   &:active {
+//     box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+//   }
+// }
 
-.disabled {
-  display: none;
-}
+// .disabled {
+//   display: none;
+// }
 
-.font-weight-bold {
-  font-weight: bold;
-}
+// .font-weight-bold {
+//   font-weight: bold;
+// }
 
-.font-weight-normal {
-  font-weight: normal;
-}
+// .font-weight-normal {
+//   font-weight: normal;
+// }
 
-.Giridhar {
-  display: flex;
-  justify-content: center;
-}
+// .Giridhar {
+//   display: flex;
+//   justify-content: center;
+// }
 
-.feedback{
-  position: absolute;
-}
+// .feedback{
+//   position: absolute;
+// }

@@ -2,15 +2,19 @@ import i18next from 'i18next';
 
 export default () => {
   const renderFeeds = (feed, elements) => {
-    elements.flow.classList.remove('disabled');
+    elements.feedsTitle.innerHTML = i18next.t('feeds');
+    elements.feedsTitle.classList.remove('d-none');
+    // elements.flow.classList.remove('disabled');
     const li = document.createElement('li');
     li.classList.add('list-group-item');
     li.innerHTML = `<h3>${feed.title}</h3>
   <p>${feed.description}</p>`;
-    elements.feedsTitle.prepend(li);
+    elements.feedTitle.prepend(li);
   };
 
   const renderPosts = (item, index, elements) => {
+    elements.postsTitle.innerHTML = i18next.t('posts');
+    elements.postsTitle.classList.remove('d-none');
     const li = document.createElement('li');
     li.classList.add(
       'list-group-item',
@@ -19,12 +23,12 @@ export default () => {
       'align-items-start',
     );
     li.innerHTML += `
-  <a
-    href="${item.link}"
-    class="postLink font-weight-bold"
+    <a
+    class="font-weight-bold postLink"
     data-id="${index + 1}"
     target="_blank"
     rel="noopener noreferrer"
+    href="${item.link}"
   >${item.title}</a>
   <button
     type="button"

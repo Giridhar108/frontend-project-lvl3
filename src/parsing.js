@@ -2,6 +2,7 @@ export default (data) => {
   const document = new DOMParser().parseFromString(data, 'text/xml');
   const error = document.querySelector('parsererror');
   if (error) {
+    console.log('pars')
     return 'Error';
   }
 

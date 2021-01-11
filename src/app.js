@@ -22,13 +22,15 @@ export default () => {
     button: document.querySelector('.col-auto>button'),
     feedback: document.querySelector('.feedback'),
     flow: document.querySelector('.flow'),
-    feedsTitle: document.querySelector('.feeds > ul'),
+    feedTitle: document.querySelector('.feeds > ul'),
     posts: document.querySelector('.posts > ul'),
     modal: document.querySelector('#modal'),
     body: document.querySelector('body'),
     modalTitle: document.querySelector('.modal-title'),
     modalBody: document.querySelector('.modal-body'),
     modalLind: document.querySelector('.full-article'),
+    feedsTitle: document.querySelector('.feeds > h2'),
+    postsTitle: document.querySelector('.posts > h2'),
   };
 
   const texts = () => {

@@ -71,8 +71,8 @@ export const getUrl = (e, state) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const url = formData.get('url');
-  state.status = '';
   if (!state.checkedUrl.includes(url)) {
+    state.status = '';
     state.url.push(url.trim());
     getData(state);
   }

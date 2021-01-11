@@ -4,7 +4,6 @@ export default () => {
   const renderFeeds = (feed, elements) => {
     elements.feedsTitle.innerHTML = i18next.t('feeds');
     elements.feedsTitle.classList.remove('d-none');
-    // elements.flow.classList.remove('disabled');
     const li = document.createElement('li');
     li.classList.add('list-group-item');
     li.innerHTML = `<h3>${feed.title}</h3>
@@ -68,7 +67,7 @@ export default () => {
         elements.input.classList.remove('is-valid');
         break;
       case '':
-        elements.input.setAttribute('readonly', 'readonly');
+        elements.input.setAttribute('readonly', '');
         elements.button.setAttribute('disabled', 'disabled');
         elements.feedback.innerHTML = i18next.t('processing');
         break;
@@ -87,7 +86,7 @@ export default () => {
         elements.feedback.classList.remove('text-success');
         break;
       case 'processing':
-        elements.input.setAttribute('readonly', 'readonly');
+        elements.input.setAttribute('readonly', '');
         initState.main.forEach((feed) => {
           if (!initState.added.includes(feed.date)) renderFeeds(feed, elements);
         });

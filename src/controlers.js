@@ -20,10 +20,11 @@ const pushAdded = (main, items, state) => {
 
 export const getData = (state) => {
   state.url.map((url) => axios
-    .get(`https://api.allorigins.win/raw?url=${url}`)
+    .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
     // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
-      const feedData = parsing(response.data);
+      // console.log(response)
+      const feedData = parsing(response.data.contents);
       console.log(feedData);
 
       if (feedData === 'Error') {

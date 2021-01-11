@@ -14,7 +14,7 @@ export default {
     processing: 'processing...',
     processed: 'Rss has been loaded',
     failed: 'failed',
-    was: 'it was',
+    was: 'Rss already exists',
     sourceInvalid: 'This source doesn\'t contain valid rss',
     NetworkError: 'Network error',
   },

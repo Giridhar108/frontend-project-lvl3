@@ -78,7 +78,7 @@ export default () => {
         // elements.feedback.innerHTML = i18next.t('processed');
         elements.feedbackTwo.innerHTML = i18next.t('processed');
         elements.feedbackTwo.classList.add('text-success');
-        elements.feedback.innerHTML = '';
+        elements.feedback.innerHTML = 'something';
         break;
       case 'failed':
         elements.feedback.innerHTML = i18next.t('falied');

@@ -67,15 +67,18 @@ export default () => {
         elements.input.classList.remove('is-valid');
         break;
       case '':
-        elements.input.readonly = true;
+        elements.input.setAttribute('readonly', '');
         elements.button.setAttribute('disabled', 'disabled');
         // elements.feedback.innerHTML = i18next.t('processing');
         break;
       case 'processed':
-        elements.input.readonly = false;
-        elements.feedback.classList.remove('text-danger');
-        elements.feedback.classList.add('text-success');
-        elements.feedback.innerHTML = i18next.t('processed');
+        elements.input.removeAttribute('readonly');
+        // elements.feedback.classList.remove('text-danger');
+        // elements.feedback.classList.add('text-success');
+        // elements.feedback.innerHTML = i18next.t('processed');
+        elements.feedback.innerHTML = '';
+        elements.feedbackTwo.innerHTML = i18next.t('processed');
+        elements.feedbackTwo.classList.add('text-success');
         break;
       case 'failed':
         elements.feedback.innerHTML = i18next.t('falied');
@@ -83,7 +86,7 @@ export default () => {
         elements.feedback.classList.remove('text-success');
         break;
       case 'processing':
-        elements.input.readonly = true;
+        elements.input.setAttribute('readonly', '');
         initState.main.forEach((feed) => {
           if (!initState.added.includes(feed.date)) renderFeeds(feed, elements);
         });

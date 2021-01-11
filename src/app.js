@@ -21,6 +21,7 @@ export default () => {
     input: document.querySelector('input'),
     button: document.querySelector('.col-auto>button'),
     feedback: document.querySelector('.feedback'),
+    feedbackTwo: document.querySelector('.feedback__two'),
     flow: document.querySelector('.flow'),
     feedTitle: document.querySelector('.feeds > ul'),
     posts: document.querySelector('.posts > ul'),

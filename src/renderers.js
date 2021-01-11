@@ -67,13 +67,13 @@ export default () => {
         elements.input.classList.remove('is-valid');
         break;
       case '':
-        elements.input.setAttribute('readonly', '');
+        elements.input.readonly = true;
         elements.button.setAttribute('disabled', 'disabled');
         elements.feedback.innerHTML = i18next.t('processing');
         break;
       case 'processed':
         // button.setAttribute('disabled', 'disabled');
-        elements.input.removeAttribute('readonly');
+        elements.input.readonly = false;
 
         elements.feedback.classList.remove('text-danger');
         elements.feedback.classList.add('text-success');
@@ -86,7 +86,7 @@ export default () => {
         elements.feedback.classList.remove('text-success');
         break;
       case 'processing':
-        elements.input.setAttribute('readonly', '');
+        elements.input.readonly = true;
         initState.main.forEach((feed) => {
           if (!initState.added.includes(feed.date)) renderFeeds(feed, elements);
         });

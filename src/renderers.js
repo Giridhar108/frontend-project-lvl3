@@ -51,7 +51,7 @@ export default () => {
         elements.feedback.classList.add('text-success');
         break;
       case 'invalid':
-        elements.button.setAttribute('disabled', 'disabled');
+        // elements.button.setAttribute('disabled', 'disabled');
         elements.feedback.innerHTML = i18next.t('notValid');
         elements.feedback.classList.add('text-danger');
         elements.feedback.classList.remove('text-success');
@@ -69,18 +69,15 @@ export default () => {
       case '':
         elements.input.readonly = true;
         elements.button.setAttribute('disabled', 'disabled');
-        elements.feedback.innerHTML = i18next.t('processing');
+        // elements.feedback.innerHTML = i18next.t('processing');
         break;
       case 'processed':
-        // button.setAttribute('disabled', 'disabled');
         elements.input.readonly = false;
-
         elements.feedback.classList.remove('text-danger');
         elements.feedback.classList.add('text-success');
         elements.feedback.innerHTML = i18next.t('processed');
         break;
       case 'failed':
-        // button.setAttribute('disabled', 'disabled');
         elements.feedback.innerHTML = i18next.t('falied');
         elements.feedback.classList.add('text-danger');
         elements.feedback.classList.remove('text-success');

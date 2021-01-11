@@ -19,6 +19,7 @@ const pushAdded = (main, items, state) => {
 };
 
 export const getData = (state) => {
+  console.log('here')
   state.url.map((url) => axios
     .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
     // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
@@ -34,7 +35,7 @@ export const getData = (state) => {
       state.status = 'processing';
       pushAdded(state.main, state.items, state);
     })
-    .catch((e) => {
+    .catch(() => {
       state.url = [];
       state.status = 'failed';
     }));
@@ -79,7 +80,7 @@ export const getUrl = (e, state) => {
 };
 
 export const openModal = (event, state) => {
-  console.log(event.path)
+  console.log(event.path);
   const btn = event.path[0];
   state.postActive = { btn };
 };

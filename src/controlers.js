@@ -23,12 +23,8 @@ export const getData = (state) => {
     .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
     // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
-      // console.log(response)
       const feedData = parsing(response.data.contents);
-      console.log(feedData);
-
       if (feedData === 'Error') {
-        console.log('er');
         state.status = 'failed';
         throw new Error(`Wrong ${document}`);
       }
@@ -39,7 +35,6 @@ export const getData = (state) => {
       pushAdded(state.main, state.items, state);
     })
     .catch((e) => {
-      console.log(e);
       state.url = [];
       state.status = 'failed';
     }));

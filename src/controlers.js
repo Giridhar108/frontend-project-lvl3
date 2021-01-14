@@ -25,8 +25,10 @@ export const getData = (state) => {
     .then((response) => {
       const feedData = parsing(response.data.contents);
       if (feedData === 'Error') {
-        state.status = 'failed';
-        throw new Error(`Wrong ${document}`);
+        console.log('feed');
+        state.status = 'Wrong rss';
+        // throw new Error(`Wrong ${document}`);
+        return;
       }
       state.checkedUrl.push(response.config.url);
       state.main.push(feedData.main);
@@ -36,7 +38,7 @@ export const getData = (state) => {
     })
     .catch(() => {
       state.url = [];
-      state.status = 'failed';
+      state.status = 'Network Error';
     }));
 };
 
@@ -71,14 +73,15 @@ export const getUrl = (e, state) => {
   const formData = new FormData(e.target);
   const url = formData.get('url');
   validate(url, state)
-  .then(() => {
-    if (!state.checkedUrl.includes(url)
+    .then(() => {
+      console.log(state);
+      if (!state.checkedUrl.includes(url)
       && state.status === 'valid') {
       // state.status = '';
-      state.url.push(url.trim());
-      getData(state);
-    }
-  })
+        state.url.push(url.trim());
+        getData(state);
+      }
+    });
 };
 
 export const openModal = (event, state) => {

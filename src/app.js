@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import {
-  validate, getUrl, openModal, listenModal, fetchNewPosts,
+  getUrl, openModal, listenModal, fetchNewPosts,
 } from './controlers';
 import watchState from './watchers';
 import english from './locales/en';
@@ -46,7 +46,7 @@ export default () => {
   };
 
   // getWatchedState(state);
-  const input = document.querySelector('input');
+  // const input = document.querySelector('input');
   const form = document.querySelector('.rss-form');
   const postClick = document.querySelector('.posts');
   const modalClick = document.querySelector('#modal');

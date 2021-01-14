@@ -80,14 +80,18 @@ export default () => {
         elements.feedbackTwo.classList.add('text-success');
         elements.feedback.innerHTML = '';
         break;
-      case 'failed':
-        elements.feedback.innerHTML = i18next.t('falied');
+      case 'Wrong rss':
+        elements.feedback.innerHTML = i18next.t('sourceInvalid');
+        elements.feedback.classList.add('text-danger');
+        elements.feedback.classList.remove('text-success');
+        break;
+      case 'Network Error':
+        elements.feedback.innerHTML = i18next.t('NetworkError');
         elements.feedback.classList.add('text-danger');
         elements.feedback.classList.remove('text-success');
         break;
       case 'processing':
-        console.log(initState.added, initState.main
-        )
+        console.log(initState.added, initState.main);
         elements.input.setAttribute('readonly', '');
         initState.main.forEach((feed) => {
           if (!initState.added.includes(feed.pubDate)) renderFeeds(feed, elements);

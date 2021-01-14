@@ -6,8 +6,8 @@ import parsing from './parsing';
 
 const pushAdded = (main, items, state) => {
   main.forEach((a) => {
-    if (!state.added.includes(a.date)) {
-      state.added.push(a.date);
+    if (!state.added.includes(a.pubDate)) {
+      state.added.push(a.pubDate);
     }
   });
   items.flat().forEach((a) => {
@@ -40,8 +40,7 @@ export const getData = (state) => {
     }));
 };
 
-export const validate = (e, state) => {
-  const url = e.target.value;
+export const validate = (url, state) => {
   setLocale({
     number: {
       min: ({ min }) => ({ key: i18next.t('setLocale'), values: { min } }),
@@ -52,7 +51,7 @@ export const validate = (e, state) => {
     url: yup.string().min(5).url(),
   });
 
-  schema
+  return schema
     .isValid({
       url: `${url}`,
     })
@@ -71,15 +70,18 @@ export const getUrl = (e, state) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const url = formData.get('url');
-  if (!state.checkedUrl.includes(url) && state.status !== 'invalid') {
-    state.status = '';
-    state.url.push(url.trim());
-    getData(state);
-  }
+  validate(url, state)
+  .then(() => {
+    if (!state.checkedUrl.includes(url)
+      && state.status === 'valid') {
+      // state.status = '';
+      state.url.push(url.trim());
+      getData(state);
+    }
+  })
 };
 
 export const openModal = (event, state) => {
-  console.log(event.path);
   const btn = event.path[0];
   state.postActive = { btn };
 };

@@ -9,22 +9,6 @@ const {
 } = render();
 
 export default (initState, elements) => {
-  // const handlePosts = (state) => {};
-
-  // const handleModal = (state) => {};
-
-  // const watchedState = onChange(initState, (path) => {
-  //   switch (path) {
-  //     case 'status':
-  //       handleModal(initState);
-  //       break;
-  //     case 'ui.seenPosts':
-  //       handlePosts(initState);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // });
 
   const watchedState = onChange(initState, (path, value) => {
     switch (path) {

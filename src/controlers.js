@@ -25,7 +25,6 @@ export const getData = (state) => {
     .then((response) => {
       const feedData = parsing(response.data.contents);
       if (feedData === 'Error') {
-        console.log('feed');
         state.status = 'Wrong rss';
         // throw new Error(`Wrong ${document}`);
         return;
@@ -74,10 +73,8 @@ export const getUrl = (e, state) => {
   const url = formData.get('url');
   validate(url, state)
     .then(() => {
-      console.log(state);
       if (!state.checkedUrl.includes(url)
       && state.status === 'valid') {
-      // state.status = '';
         state.url.push(url.trim());
         getData(state);
       }

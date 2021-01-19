@@ -26,7 +26,6 @@ export default () => {
     class="font-weight-bold postLink"
     data-id="${index + 1}"
     target="_blank"
-    rel="noopener noreferrer"
     href="${item.link}"
   >${item.title}</a>
   <button
@@ -66,11 +65,6 @@ export default () => {
         elements.input.classList.add('is-invalid');
         elements.input.classList.remove('is-valid');
         break;
-      // case '':
-      //   elements.input.setAttribute('readonly', '');
-      //   // elements.button.setAttribute('disabled', 'disabled');
-      //   // elements.feedback.innerHTML = i18next.t('processing');
-      //   break;
       case 'processed':
         elements.input.removeAttribute('readonly');
         // elements.feedback.classList.remove('text-danger');
@@ -91,7 +85,6 @@ export default () => {
         elements.feedback.classList.remove('text-success');
         break;
       case 'processing':
-        console.log(initState.added, initState.main);
         elements.input.setAttribute('readonly', '');
         initState.main.forEach((feed) => {
           if (!initState.added.includes(feed.pubDate)) renderFeeds(feed, elements);

@@ -35,7 +35,8 @@ export const getData = (state) => {
       state.status = 'processing';
       pushAdded(state.main, state.items, state);
     })
-    .catch(() => {
+    .catch((e) => {
+      console.log(e)
       state.url = [];
       state.status = 'Network Error';
     }));

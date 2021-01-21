@@ -19,10 +19,7 @@ const pushAdded = (main, items, state) => {
 };
 
 export const getData = (state) => {
-  state.url.map((url) => axios
-    .get(
-      `https://hexlet-allorigins.herokuapp.com/get?url=${encodeURIComponent(url)}`,
-    )
+  state.url.map((url) => axios.get(`https://hexlet-allorigins.herokuapp.com/get?url=${encodeURIComponent(url)}`)
   // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
       const feedData = parsing(response.data.contents);

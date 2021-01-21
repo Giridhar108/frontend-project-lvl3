@@ -21,7 +21,7 @@ const pushAdded = (main, items, state) => {
 export const getData = (state) => {
   state.url.map((url) => axios
     .get(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-    // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
+  // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
       const feedData = parsing(response.data.contents);
       if (feedData === 'Error') {
@@ -71,14 +71,12 @@ export const getUrl = (e, state) => {
   e.preventDefault();
   const formData = new FormData(e.target);
   const url = formData.get('url');
-  validate(url, state)
-    .then(() => {
-      if (!state.checkedUrl.includes(url)
-      && state.status === 'valid') {
-        state.url.push(url.trim());
-        getData(state);
-      }
-    });
+  validate(url, state).then(() => {
+    if (!state.checkedUrl.includes(url) && state.status === 'valid') {
+      state.url.push(url.trim());
+      getData(state);
+    }
+  });
 };
 
 export const openModal = (event, state) => {

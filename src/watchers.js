@@ -9,7 +9,6 @@ const {
 } = render();
 
 export default (initState, elements) => {
-
   const watchedState = onChange(initState, (path, value) => {
     switch (path) {
       case 'status':

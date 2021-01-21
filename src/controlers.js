@@ -20,8 +20,8 @@ const pushAdded = (main, items, state) => {
 
 export const getData = (state) => {
   state.url.map((url) =>
-    // axios.get(`https://hexlet-allorigins.herokuapp.com/get?url=${encodeURIComponent(url)}`)
-  axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
+    axios.get(`https://hexlet-allorigins.herokuapp.com/get?url=${encodeURIComponent(url)}`)
+  // axios.get(`https://cors-anywhere.herokuapp.com/${url}`)
     .then((response) => {
       const feedData = parsing(response.data.contents);
       if (feedData === 'Error') {
@@ -81,15 +81,17 @@ export const getUrl = (e, state) => {
 
   if (validate(url, state) && !state.url.includes(url)) {
     state.status = 'valid';
+    state.url.push(url.trim());
+    getData(state);
   } else if (validate(url, state) && state.url.includes(url)) {
     state.status = 'was';
   } else {
     state.status = 'invalid';
   }
-  if (!state.checkedUrl.includes(url) && state.status === 'valid') {
-    state.url.push(url.trim());
-    getData(state);
-  }
+  // if (!state.checkedUrl.includes(url) && state.status === 'valid') {
+  //   state.url.push(url.trim());
+  //   getData(state);
+  // }
 };
 
 export const openModal = (event, state) => {
